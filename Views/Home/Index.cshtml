@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Page d'accueil";
+}
+<link href="~/Content/css/list_retard.css" rel="stylesheet" />
+
+
+
+
+
+@foreach (var item in Model.Retards)
+{
+    <div class="card__retard">
+        <div class="card__header">
+            <img src="~/Content/images/@item.Eleve.photo_profile" alt="Alternate Text" />
+            <h3>@item.titre</h3>
+            <span class="@(@item.getNbVotes() > 0 ? "green-text" : "red-text") text-darken-3">@item.getNbVotes()</span>
+        </div>
+        <p>
+            @item.description
+        </p>
+
+
+        <div>
+            <a onclick="updateVote(@item.id,1)" href="#"><i class="material-icons green-text text-darken-2">keyboard_arrow_up</i></a>
+            <a href="#" onclick="updateVote(@item.id,0)" ><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></a>
+        </div>
+    </div>
+}
+
+<script>
+    function updateVote(idRetard,isupvote) {
+        axios.get(`/Home/Updatevote/${idRetard}/${isupvote}`)
+            .then(function (response) {
+                console.log(response);
+                console.log('success')
+            })
+            .catch(function (error) {
+                console.log(error);
+                console.log('fail')
+            });
+    }
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>

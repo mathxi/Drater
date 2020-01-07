@@ -1,0 +1,50 @@
+﻿@model Drater.Models.Vote_Eleve
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vote_Eleve</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dateVote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateVote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valeur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valeur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Eleve.pseudo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eleve.pseudo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Retard.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Retard.titre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
