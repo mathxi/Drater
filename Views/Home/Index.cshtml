@@ -13,26 +13,39 @@
         <div class="card__header">
             <img src="~/Content/images/@item.Eleve.photo_profile" alt="Alternate Text" />
             <h3>@item.titre</h3>
-            <span class="@(@item.getNbVotes() > 0 ? "green-text" : "red-text") text-darken-3">@item.getNbVotes()</span>
+            <span class="@(@item.getNbVotes() > 0 ? "green-text" : "red-text") text-darken-3 vote__value">@item.getNbVotes()</span>
         </div>
         <p>
             @item.description
         </p>
 
-
         <div>
-            <a onclick="updateVote(@item.id,1)" href="#"><i class="material-icons green-text text-darken-2">keyboard_arrow_up</i></a>
-            <a href="#" onclick="updateVote(@item.id,0)" ><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></a>
+            <a onclick="updateVote(this,@item.id,1)" href="#"><i class="material-icons green-text text-darken-2">keyboard_arrow_up</i></a>
+            <a href="#" onclick="updateVote(this,@item.id,0)" ><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></a>
         </div>
     </div>
 }
 
 <script>
-    function updateVote(idRetard,isupvote) {
+    function updateVote(event,idRetard,isupvote) {
         axios.get(`/Home/Updatevote/${idRetard}/${isupvote}`)
             .then(function (response) {
                 console.log(response);
                 console.log('success')
+                console.log("Event: ", event.parentNode.parentNode.getElementsByClassName('vote__value')[0])
+                const voteValue = event.parentNode.parentNode.getElementsByClassName('vote__value')[0]
+                const classPositif = "green-text text-darken-3 vote__value"
+                const classNegatif = "red-text text-darken-3 vote__value"
+
+                voteValue.innerText = response.data.nbNewVotes
+
+                if (response.data.nbNewVotes> 0) {
+                    voteValue.classList = classPositif
+                } else {
+                    voteValue.classList = classNegatif
+                }
+                
+                M.toast({ html: response.data.message })
             })
             .catch(function (error) {
                 console.log(error);

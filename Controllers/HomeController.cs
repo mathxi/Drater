@@ -20,6 +20,8 @@ namespace Drater.Controllers
             return View(lrvm);
         }
 
+
+
         // GET: Home/updatevote/{idretard}/{isupvote}
         public ActionResult Updatevote(long id,int value)
         {
@@ -31,7 +33,7 @@ namespace Drater.Controllers
             var vote_Eleves = db.Vote_Eleve
                     .Where(v => v.idEleve == idUserConnected && v.idRetard == id)
                     .FirstOrDefault();
-
+            string messageRetour = "";
             if (vote_Eleves != null)
             {
                 vote_Eleves.dateVote = DateTime.Now;
@@ -44,10 +46,19 @@ namespace Drater.Controllers
                     vote_Eleves.valeur = false;
                 }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new
+                    {
+                        success = true,
+                        message = "Vote modifié",
+                        nbNewVotes = retard.getNbVotes()
+
+                },
+                    JsonRequestBehavior.AllowGet);
             }
             else if (value > 0)  
             {
+
+                
                 Vote_Eleve newVote_Eleves = new Vote_Eleve()
                 {
                     idEleve = idUserConnected,
@@ -57,6 +68,7 @@ namespace Drater.Controllers
 
                 };
                 db.Vote_Eleve.Add(newVote_Eleves);
+                messageRetour = "Up vote";
             }
             else
             {
@@ -69,10 +81,18 @@ namespace Drater.Controllers
 
                 };
                 db.Vote_Eleve.Add(newVote_Eleves);
+                messageRetour = "Down vote";
             }
             
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new
+            {
+                success = true,
+                message = messageRetour,
+                nbNewVotes = retard.getNbVotes()
+
+            },
+    JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()
