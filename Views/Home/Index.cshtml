@@ -5,8 +5,6 @@
 
 
 
-
-
 @foreach (var item in Model.Retards)
 {
     <div class="card__retard">
@@ -18,10 +16,9 @@
         <p>
             @item.description
         </p>
-
         <div>
-            <a onclick="updateVote(this,@item.id,1)" href="#"><i class="material-icons green-text text-darken-2">keyboard_arrow_up</i></a>
-            <a href="#" onclick="updateVote(this,@item.id,0)" ><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></a>
+            <span onclick="updateVote(this,@item.id,1)" href="#"><i class="material-icons green-text text-darken-2">keyboard_arrow_up</i></span>
+            <span onclick="updateVote(this,@item.id,0)" ><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></span>
         </div>
     </div>
 }
@@ -32,10 +29,23 @@
             .then(function (response) {
                 console.log(response);
                 console.log('success')
+                console.log(event)
                 console.log("Event: ", event.parentNode.parentNode.getElementsByClassName('vote__value')[0])
                 const voteValue = event.parentNode.parentNode.getElementsByClassName('vote__value')[0]
+                const changeVote = ""
                 const classPositif = "green-text text-darken-3 vote__value"
                 const classNegatif = "red-text text-darken-3 vote__value"
+
+                if (isupvote == 0) {
+                    event.firstElementChild.classList.toggle("red-text"); event.firstElementChild.classList.toggle("white-text");
+                    event.firstElementChild.classList.toggle("ToogleVoteDown");
+
+
+                } else {
+                    event.firstElementChild.classList.toggle("green-text"); event.firstElementChild.classList.toggle("white-text");
+                    event.firstElementChild.classList.toggle("ToogleVoteUp");
+                }
+
 
                 voteValue.innerText = response.data.nbNewVotes
 
@@ -43,6 +53,7 @@
                     voteValue.classList = classPositif
                 } else {
                     voteValue.classList = classNegatif
+
                 }
                 
                 M.toast({ html: response.data.message })

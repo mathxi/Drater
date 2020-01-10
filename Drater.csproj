@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Controllers\ConnexionController.cs" />
     <Compile Include="Controllers\ElevesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RetardsController.cs" />
@@ -175,6 +176,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\connexion.css" />
     <Content Include="Content\css\list_retard.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\images\mwa.jpg" />
@@ -247,6 +249,7 @@
     <Content Include="Views\Vote_Eleve\Details.cshtml" />
     <Content Include="Views\Vote_Eleve\Edit.cshtml" />
     <Content Include="Views\Vote_Eleve\Index.cshtml" />
+    <Content Include="Views\Connexion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

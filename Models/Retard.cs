@@ -14,6 +14,8 @@ namespace Drater.Models
     
     public partial class Retard
     {
+        private draterEntities db = new draterEntities();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Retard()
         {
@@ -46,6 +48,15 @@ namespace Drater.Models
             }
 
             return trendVote;
+        }
+
+        public bool getVoteEleve(int idUtilisateur)
+        {
+            bool present = false;
+
+            // TODO -> Methode qui va chercher dans la base si l'utilisateur connecté a voté sur le retard
+
+            return present;
         }
     }
 }

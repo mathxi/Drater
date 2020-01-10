@@ -16,7 +16,7 @@ namespace Drater
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}/{value}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, value = UrlParameter.Optional }
+                defaults: new { controller = "Connexion", action = "Index", id = UrlParameter.Optional, value = UrlParameter.Optional }
             );
         }
     }

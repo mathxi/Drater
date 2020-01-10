@@ -10,6 +10,7 @@ using Drater.Models;
 
 namespace Drater.Controllers
 {
+    [Authorize]
     public class ElevesController : Controller
     {
         private draterEntities db = new draterEntities();

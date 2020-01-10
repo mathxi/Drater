@@ -1,0 +1,13 @@
+﻿<link href="~/Content/css/connexion.css" rel="stylesheet" />
+
+<h2>Bienvenue sur Drater</h2>
+<h2 style="color:red;">@ViewBag.ConnexionErreur</h2>
+<div id="formCO">
+    <form action="" method="post">
+        <input name="Pseudo" placeholder="Entrez votre pseudo" style="text-align: center;" />
+        <input name="MDP" placeholder="Entrez votre mdp"  style="text-align: center;" />
+        <button class="btn waves-effect waves-light" type="submit">Connexion<i class="material-icons right">send</i></button>
+    </form>
+</div>
+
+<p>Creer votre compte ? <a href="/Eleves/Create">ici</a></p>

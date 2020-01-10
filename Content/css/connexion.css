@@ -1,0 +1,28 @@
+﻿body {
+    background-color: whitesmoke;
+}
+
+#formCO {
+    height: 250px;
+    width: 80%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    box-shadow: 1px 2px 11px 4px #0000001a;
+    border-radius: 50px / 20px;
+}
+
+    #formCO form {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        width: 60%;
+    }
+
+#formCo form button{
+    width: auto;
+}
+    
+
