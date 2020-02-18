@@ -38,6 +38,7 @@ namespace Drater.Controllers
         }
 
         // GET: Eleves/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             ViewBag.idClasse = new SelectList(db.Classe, "id", "libelle");

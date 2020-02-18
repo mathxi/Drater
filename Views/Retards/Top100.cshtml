@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Top 100 des retards";
+}
+<link href="~/Content/css/list_retard.css" rel="stylesheet" />
+
+
+
+@foreach (var item in Model.Listetop100Retard)
+{
+    <div class="card__retard">
+        <div class="card__header">
+            <img src="~/Content/images/@item.Eleve.photo_profile" alt="Alternate Text" />
+            <h3>@item.titre</h3>
+            <span class="@(@item.getNbVotes() > 0 ? "green-text" : "red-text") text-darken-3 vote__value">@item.getNbVotes()</span>
+        </div>
+
+        <p>
+            @item.description
+
+        </p>
+        <div>
+
+            @foreach (var element in item.Vote_Eleve)
+            {
+                if (element.idEleve == Int64.Parse(User.Identity.Name))
+                {
+                    if (element.valeur)
+                    {
+                        <span onclick="updateVote(this,@item.id,1)" href="#"><i class="material-icons white-text text-darken-2 ToggleVoteUp">keyboard_arrow_up</i></span>
+                        <span onclick="updateVote(this,@item.id,0)"><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></span>
+                    }
+                    else
+                    {
+                        <span onclick="updateVote(this,@item.id,1)" href="#"><i class="material-icons green-text text-darken-2 ">keyboard_arrow_up</i></span>
+                        <span onclick="updateVote(this,@item.id,0)"><i class="material-icons white-text text-darken-2 ToogleVoteDown">keyboard_arrow_down</i></span>
+                    }
+
+                }
+
+            }
+            @if (item.Vote_Eleve.Count == 0)
+            {
+                <span onclick="updateVote(this,@item.id,1)" href="#"><i class="material-icons green-text text-darken-2 ">keyboard_arrow_up</i></span>
+                <span onclick="updateVote(this,@item.id,0)"><i class="material-icons red-text text-darken-2">keyboard_arrow_down</i></span>
+            }
+
+
+
+
+        </div>
+    </div>
+}
+
+<script>
+    function updateVote(event, idRetard, isupvote) {
+        axios.get(`/Home/Updatevote/${idRetard}/${isupvote}`)
+            .then(function (response) {
+                console.log(response);
+                console.log('success')
+                console.log(event)
+                console.log("Event: ", event.parentNode.parentNode.getElementsByClassName('vote__value')[0])
+                const voteValue = event.parentNode.parentNode.getElementsByClassName('vote__value')[0]
+                const changeVote = ""
+                const classPositif = "green-text text-darken-3 vote__value"
+                const classNegatif = "red-text text-darken-3 vote__value"
+
+                if (isupvote == 0) {
+                    event.firstElementChild.classList.toggle("red-text"); event.firstElementChild.classList.toggle("white-text");
+                    event.firstElementChild.classList.toggle("ToogleVoteDown");
+
+
+
+                } else {
+                    event.firstElementChild.classList.toggle("green-text"); event.firstElementChild.classList.toggle("white-text");
+                    event.firstElementChild.classList.toggle("ToggleVoteUp");
+                }
+
+
+                voteValue.innerText = response.data.nbNewVotes
+
+                if (response.data.nbNewVotes> 0) {
+                    voteValue.classList = classPositif
+                } else {
+                    voteValue.classList = classNegatif
+
+                }
+
+                M.toast({ html: response.data.message })
+            })
+            .catch(function (error) {
+                console.log(error);
+                console.log('fail')
+            });
+    }
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>

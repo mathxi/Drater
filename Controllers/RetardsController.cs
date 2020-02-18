@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Drater.Models;
+using Drater.ViewModel;
 
 namespace Drater.Controllers
 {
@@ -89,7 +90,18 @@ namespace Drater.Controllers
             ViewBag.idEleve = new SelectList(db.Eleve, "id", "pseudo", retard.idEleve);
             return View(retard);
         }
-        
+
+
+        // GET: Retards/Top100/id
+        public ActionResult Top100()
+        {
+            Top100VM lrvm = new Top100VM();
+            return View(lrvm);
+           
+        }
+
+
+
 
         // POST: Retards/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
