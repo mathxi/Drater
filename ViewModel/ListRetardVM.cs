@@ -27,7 +27,7 @@ namespace Drater.ViewModel
         public ListRetardVM(string Titre)
         {
             int id = 1;
-            retards = db.Retard.Include(r => r.Eleve).Where(r => r.titre == Titre).ToList();
+            retards = db.Retard.Include(r => r.Eleve).Where(r => r.titre.Contains(Titre)).ToList();
             eleve = db.Eleve.Find(id);
         }
 
