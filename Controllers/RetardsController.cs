@@ -99,6 +99,13 @@ namespace Drater.Controllers
             return View(lrvm);
            
         }
+        // GET: Retards/Top100/id
+        public ActionResult Filtre(string titre)
+        {
+            ListRetardVM lrvm = new ListRetardVM(titre);
+            return View(lrvm);
+
+        }
 
 
 
