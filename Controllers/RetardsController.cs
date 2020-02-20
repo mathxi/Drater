@@ -47,7 +47,7 @@ namespace Drater.Controllers
         public ActionResult Create()
         {
             
-            ViewBag.idEleve = new SelectList(db.Eleve, "id", "pseudo");
+            ViewBag.tags = new SelectList(db.Tags, "id", "libelle");
             return View();
             
         }
@@ -63,13 +63,16 @@ namespace Drater.Controllers
             if (ModelState.IsValid)
             {
                 retard.idEleve = Convert.ToInt64(User.Identity.Name);
+
+                retard.Retards_Tags.Add(new Retards_Tags { Id_Retard = retard.id, Id_Tags = retard.idEleve });
                 db.Retard.Add(retard);
+                
+                //db.Retards_Tags.Add()
                 db.SaveChanges();
                 Response.Redirect("/Home");
             }
             else
             {
-
             }
 
             ViewBag.idEleve = new SelectList(db.Eleve, "id", "pseudo", retard.idEleve); 

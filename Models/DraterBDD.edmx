@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="draterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="draterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classe">
           <Key>
             <PropertyRef Name="id" />
@@ -34,6 +34,14 @@
           <Property Name="idEleve" Type="bigint" Nullable="false" />
           <Property Name="pj" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <EntityType Name="Retards_Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id_Retard" Type="bigint" Nullable="false" />
+          <Property Name="Id_Tags" Type="bigint" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -43,6 +51,13 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Vote_Eleve">
           <Key>
@@ -78,6 +93,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Retards_Tags_Retard">
+          <End Role="Retard" Type="Self.Retard" Multiplicity="1" />
+          <End Role="Retards_Tags" Type="Self.Retards_Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retard">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Retards_Tags">
+              <PropertyRef Name="Id_Retard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Retards_Tags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="Retards_Tags" Type="Self.Retards_Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Retards_Tags">
+              <PropertyRef Name="Id_Tags" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Vote_Eleve_Eleve">
           <End Role="Eleve" Type="Self.Eleve" Multiplicity="1" />
           <End Role="Vote_Eleve" Type="Self.Vote_Eleve" Multiplicity="*" />
@@ -106,7 +145,9 @@
           <EntitySet Name="Classe" EntityType="Self.Classe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Eleve" EntityType="Self.Eleve" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Retard" EntityType="Self.Retard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retards_Tags" EntityType="Self.Retards_Tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vote_Eleve" EntityType="Self.Vote_Eleve" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Eleve_Classe" Association="Self.FK_Eleve_Classe">
             <End Role="Classe" EntitySet="Classe" />
@@ -115,6 +156,14 @@
           <AssociationSet Name="FK_Retard_Eleve" Association="Self.FK_Retard_Eleve">
             <End Role="Eleve" EntitySet="Eleve" />
             <End Role="Retard" EntitySet="Retard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Retards_Tags_Retard" Association="Self.FK_Retards_Tags_Retard">
+            <End Role="Retard" EntitySet="Retard" />
+            <End Role="Retards_Tags" EntitySet="Retards_Tags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Retards_Tags_Tags" Association="Self.FK_Retards_Tags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Retards_Tags" EntitySet="Retards_Tags" />
           </AssociationSet>
           <AssociationSet Name="FK_Vote_Eleve_Eleve" Association="Self.FK_Vote_Eleve_Eleve">
             <End Role="Eleve" EntitySet="Eleve" />
@@ -125,7 +174,8 @@
             <End Role="Vote_Eleve" EntitySet="Vote_Eleve" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="draterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -147,10 +197,10 @@
           <Property Name="mail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="mdp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idClasse" Type="Int64" Nullable="false" />
+          <Property Name="photo_profile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Classe" Relationship="Self.FK_Eleve_Classe" FromRole="Eleve" ToRole="Classe" />
           <NavigationProperty Name="Retard" Relationship="Self.FK_Retard_Eleve" FromRole="Eleve" ToRole="Retard" />
           <NavigationProperty Name="Vote_Eleve" Relationship="Self.FK_Vote_Eleve_Eleve" FromRole="Eleve" ToRole="Vote_Eleve" />
-          <Property Name="photo_profile" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Retard">
           <Key>
@@ -162,7 +212,18 @@
           <Property Name="idEleve" Type="Int64" Nullable="false" />
           <Property Name="pj" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Eleve" Relationship="Self.FK_Retard_Eleve" FromRole="Retard" ToRole="Eleve" />
+          <NavigationProperty Name="Retards_Tags" Relationship="Self.FK_Retards_Tags_Retard" FromRole="Retard" ToRole="Retards_Tags" />
           <NavigationProperty Name="Vote_Eleve" Relationship="Self.FK_Vote_Eleve_Retard" FromRole="Retard" ToRole="Vote_Eleve" />
+        </EntityType>
+        <EntityType Name="Retards_Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id_Retard" Type="Int64" Nullable="false" />
+          <Property Name="Id_Tags" Type="Int64" Nullable="false" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Retard" Relationship="Self.FK_Retards_Tags_Retard" FromRole="Retards_Tags" ToRole="Retard" />
+          <NavigationProperty Name="Tags" Relationship="Self.FK_Retards_Tags_Tags" FromRole="Retards_Tags" ToRole="Tags" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -173,6 +234,14 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Retards_Tags" Relationship="Self.FK_Retards_Tags_Tags" FromRole="Tags" ToRole="Retards_Tags" />
         </EntityType>
         <EntityType Name="Vote_Eleve">
           <Key>
@@ -222,6 +291,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Retards_Tags_Retard">
+          <End Role="Retard" Type="Self.Retard" Multiplicity="1" />
+          <End Role="Retards_Tags" Type="Self.Retards_Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retard">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Retards_Tags">
+              <PropertyRef Name="Id_Retard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Vote_Eleve_Retard">
           <End Role="Retard" Type="Self.Retard" Multiplicity="1" />
           <End Role="Vote_Eleve" Type="Self.Vote_Eleve" Multiplicity="*" />
@@ -234,11 +315,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Retards_Tags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="Retards_Tags" Type="Self.Retards_Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Retards_Tags">
+              <PropertyRef Name="Id_Tags" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="draterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Classe" EntityType="Self.Classe" />
           <EntitySet Name="Eleve" EntityType="Self.Eleve" />
           <EntitySet Name="Retard" EntityType="Self.Retard" />
+          <EntitySet Name="Retards_Tags" EntityType="Self.Retards_Tags" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" />
           <EntitySet Name="Vote_Eleve" EntityType="Self.Vote_Eleve" />
           <AssociationSet Name="FK_Eleve_Classe" Association="Self.FK_Eleve_Classe">
             <End Role="Classe" EntitySet="Classe" />
@@ -252,9 +347,17 @@
             <End Role="Eleve" EntitySet="Eleve" />
             <End Role="Vote_Eleve" EntitySet="Vote_Eleve" />
           </AssociationSet>
+          <AssociationSet Name="FK_Retards_Tags_Retard" Association="Self.FK_Retards_Tags_Retard">
+            <End Role="Retard" EntitySet="Retard" />
+            <End Role="Retards_Tags" EntitySet="Retards_Tags" />
+          </AssociationSet>
           <AssociationSet Name="FK_Vote_Eleve_Retard" Association="Self.FK_Vote_Eleve_Retard">
             <End Role="Retard" EntitySet="Retard" />
             <End Role="Vote_Eleve" EntitySet="Vote_Eleve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Retards_Tags_Tags" Association="Self.FK_Retards_Tags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Retards_Tags" EntitySet="Retards_Tags" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -275,12 +378,12 @@
           <EntitySetMapping Name="Eleve">
             <EntityTypeMapping TypeName="draterModel.Eleve">
               <MappingFragment StoreEntitySet="Eleve">
-                <ScalarProperty Name="photo_profile" ColumnName="photo_profile" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="pseudo" ColumnName="pseudo" />
                 <ScalarProperty Name="mail" ColumnName="mail" />
                 <ScalarProperty Name="mdp" ColumnName="mdp" />
                 <ScalarProperty Name="idClasse" ColumnName="idClasse" />
+                <ScalarProperty Name="photo_profile" ColumnName="photo_profile" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -295,6 +398,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Retards_Tags">
+            <EntityTypeMapping TypeName="draterModel.Retards_Tags">
+              <MappingFragment StoreEntitySet="Retards_Tags">
+                <ScalarProperty Name="Id_Retard" ColumnName="Id_Retard" />
+                <ScalarProperty Name="Id_Tags" ColumnName="Id_Tags" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="draterModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -303,6 +415,14 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="draterModel.Tags">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -331,7 +451,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />

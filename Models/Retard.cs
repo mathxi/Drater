@@ -14,11 +14,10 @@ namespace Drater.Models
     
     public partial class Retard
     {
-        private draterEntities db = new draterEntities();
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Retard()
         {
+            this.Retards_Tags = new HashSet<Retards_Tags>();
             this.Vote_Eleve = new HashSet<Vote_Eleve>();
         }
     
@@ -27,10 +26,6 @@ namespace Drater.Models
         public string description { get; set; }
         public long idEleve { get; set; }
         public string pj { get; set; }
-    
-        public virtual Eleve Eleve { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vote_Eleve> Vote_Eleve { get; set; }
 
         public int getNbVotes()
         {
@@ -50,13 +45,10 @@ namespace Drater.Models
             return trendVote;
         }
 
-        public bool getVoteEleve(int idUtilisateur)
-        {
-            bool present = false;
-
-            // TODO -> Methode qui va chercher dans la base si l'utilisateur connecté a voté sur le retard
-
-            return present;
-        }
+        public virtual Eleve Eleve { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Retards_Tags> Retards_Tags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vote_Eleve> Vote_Eleve { get; set; }
     }
 }
