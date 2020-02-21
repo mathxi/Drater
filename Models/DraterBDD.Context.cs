@@ -28,7 +28,9 @@ namespace Drater.Models
         public virtual DbSet<Classe> Classe { get; set; }
         public virtual DbSet<Eleve> Eleve { get; set; }
         public virtual DbSet<Retard> Retard { get; set; }
+        public virtual DbSet<Retards_Tags> Retards_Tags { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<Vote_Eleve> Vote_Eleve { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace Drater.Controllers
         public ActionResult Create()
         {
             
-            ViewBag.idEleve = new SelectList(db.Eleve, "id", "pseudo");
+            ViewBag.Retards_Tags = new SelectList(db.Tags, "id", "libelle");
             return View();
             
         }
@@ -57,19 +57,22 @@ namespace Drater.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void Create([Bind(Include = "id,titre,description,idEleve,pj")] Retard retard)
+        public void Create([Bind(Include = "id,titre,description,Retards_Tags,pj")] Retard retard)
         {
-           
             if (ModelState.IsValid)
             {
+                retard.Retards_Tags.Add(new Retards_Tags { Id_Retard = retard.id, Id_Tags = Int32.Parse(Request["Retards_Tags"]) });
                 retard.idEleve = Convert.ToInt64(User.Identity.Name);
+
+                
                 db.Retard.Add(retard);
+                
+                //db.Retards_Tags.Add()
                 db.SaveChanges();
                 Response.Redirect("/Home");
             }
             else
             {
-
             }
 
             ViewBag.idEleve = new SelectList(db.Eleve, "id", "pseudo", retard.idEleve); 
