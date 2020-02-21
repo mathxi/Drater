@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\ConnexionController.cs" />
     <Compile Include="Controllers\ElevesController.cs" />
@@ -199,6 +200,7 @@
       <DependentUpon>DraterBDD.edmx</DependentUpon>
       <LastGenOutput>DraterBDD.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\DraterBDD.edmx.sql" />
     <Content Include="Models\DraterBDD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DraterBDD.edmx</DependentUpon>
@@ -263,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

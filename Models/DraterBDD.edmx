@@ -186,7 +186,6 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="libelle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="promo" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Eleve" Relationship="Self.FK_Eleve_Classe" FromRole="Classe" ToRole="Eleve" />
         </EntityType>
         <EntityType Name="Eleve">
           <Key>
@@ -199,7 +198,6 @@
           <Property Name="idClasse" Type="Int64" Nullable="false" />
           <Property Name="photo_profile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Classe" Relationship="Self.FK_Eleve_Classe" FromRole="Eleve" ToRole="Classe" />
-          <NavigationProperty Name="Retard" Relationship="Self.FK_Retard_Eleve" FromRole="Eleve" ToRole="Retard" />
           <NavigationProperty Name="Vote_Eleve" Relationship="Self.FK_Vote_Eleve_Eleve" FromRole="Eleve" ToRole="Vote_Eleve" />
         </EntityType>
         <EntityType Name="Retard">
@@ -280,8 +278,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vote_Eleve_Eleve">
-          <End Role="Eleve" Type="Self.Eleve" Multiplicity="1" />
-          <End Role="Vote_Eleve" Type="Self.Vote_Eleve" Multiplicity="*" />
+          <End Type="Self.Eleve" Multiplicity="1" Role="Eleve" />
+          <End Type="Self.Vote_Eleve" Multiplicity="*" Role="Vote_Eleve" />
           <ReferentialConstraint>
             <Principal Role="Eleve">
               <PropertyRef Name="id" />
@@ -344,8 +342,8 @@
             <End Role="Retard" EntitySet="Retard" />
           </AssociationSet>
           <AssociationSet Name="FK_Vote_Eleve_Eleve" Association="Self.FK_Vote_Eleve_Eleve">
-            <End Role="Eleve" EntitySet="Eleve" />
-            <End Role="Vote_Eleve" EntitySet="Vote_Eleve" />
+            <End EntitySet="Eleve" Role="Eleve" />
+            <End EntitySet="Vote_Eleve" Role="Vote_Eleve" />
           </AssociationSet>
           <AssociationSet Name="FK_Retards_Tags_Retard" Association="Self.FK_Retards_Tags_Retard">
             <End Role="Retard" EntitySet="Retard" />
@@ -453,7 +451,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
       </DesignerInfoPropertySet>
     </Options>

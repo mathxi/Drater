@@ -11,7 +11,8 @@ namespace Drater.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Retard
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,13 +21,18 @@ namespace Drater.Models
             this.Retards_Tags = new HashSet<Retards_Tags>();
             this.Vote_Eleve = new HashSet<Vote_Eleve>();
         }
-    
+
         public long id { get; set; }
         public string titre { get; set; }
         public string description { get; set; }
         public long idEleve { get; set; }
         public string pj { get; set; }
 
+
+    }
+
+    public partial class Retard
+    {
         public int getNbVotes()
         {
             int trendVote = 0;

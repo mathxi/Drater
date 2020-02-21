@@ -14,17 +14,8 @@ namespace Drater.Models
     
     public partial class Classe
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Classe()
-        {
-            this.Eleve = new HashSet<Eleve>();
-        }
-    
         public long id { get; set; }
         public string libelle { get; set; }
         public System.DateTime promo { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Eleve> Eleve { get; set; }
     }
 }
