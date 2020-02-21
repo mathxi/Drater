@@ -11,27 +11,34 @@ namespace Drater.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Retard
     {
-        private draterEntities db = new draterEntities();
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Retard()
         {
             this.Vote_Eleve = new HashSet<Vote_Eleve>();
         }
-    
+
         public long id { get; set; }
         public string titre { get; set; }
         public string description { get; set; }
         public long idEleve { get; set; }
         public string pj { get; set; }
-    
+
         public virtual Eleve Eleve { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vote_Eleve> Vote_Eleve { get; set; }
+        [NotMapped]
+        public int nbVotes { get; set; }
 
+
+
+    }
+
+    public partial class Retard
+    {
         public int getNbVotes()
         {
             int trendVote = 0;

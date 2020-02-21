@@ -5,14 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e0f83fc2066c4fa6a7ac6fa6860615e4" Name="Diagram1">
-        <EntityTypeShape EntityType="draterModel.Classe" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="draterModel.Eleve" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="draterModel.Classe" Width="1.5" PointX="0.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="draterModel.Eleve" Width="1.875" PointX="2.625" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="draterModel.Retard" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="draterModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="draterModel.Vote_Eleve" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="draterModel.Vote_Eleve" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="draterModel.FK_Eleve_Classe" ManuallyRouted="false" />
         <AssociationConnector Association="draterModel.FK_Retard_Eleve" ManuallyRouted="false" />
-        <AssociationConnector Association="draterModel.FK_Vote_Eleve_Eleve" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="draterModel.FK_Vote_Eleve_Eleve">
+        </AssociationConnector>
         <AssociationConnector Association="draterModel.FK_Vote_Eleve_Retard" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

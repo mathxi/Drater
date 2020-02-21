@@ -17,7 +17,6 @@ namespace Drater.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Eleve()
         {
-            this.Retard = new HashSet<Retard>();
             this.Vote_Eleve = new HashSet<Vote_Eleve>();
         }
     
@@ -29,8 +28,6 @@ namespace Drater.Models
         public string photo_profile { get; set; }
     
         public virtual Classe Classe { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retard> Retard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vote_Eleve> Vote_Eleve { get; set; }
     }

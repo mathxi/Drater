@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\ConnexionController.cs" />
     <Compile Include="Controllers\ElevesController.cs" />
@@ -169,7 +170,9 @@
       <DependentUpon>DraterBDD.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\EleveVM.cs" />
     <Compile Include="ViewModel\ListRetardVM.cs" />
+    <Compile Include="ViewModel\Top100VM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -190,6 +193,7 @@
       <LastGenOutput>DraterBDD.Context.cs</LastGenOutput>
       <DependentUpon>DraterBDD.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\DraterBDD.edmx.sql" />
     <Content Include="Models\DraterBDD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DraterBDD.edmx</DependentUpon>
@@ -253,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
