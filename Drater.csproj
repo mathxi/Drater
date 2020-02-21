@@ -162,14 +162,23 @@
     <Compile Include="Models\Retard.cs">
       <DependentUpon>DraterBDD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Retards_Tags.cs">
+      <DependentUpon>DraterBDD.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>DraterBDD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tags.cs">
       <DependentUpon>DraterBDD.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vote_Eleve.cs">
       <DependentUpon>DraterBDD.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CreateRetardVM.cs" />
+    <Compile Include="ViewModel\EleveVM.cs" />
     <Compile Include="ViewModel\ListRetardVM.cs" />
+    <Compile Include="ViewModel\Top100VM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -187,8 +196,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\DraterBDD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DraterBDD.Context.cs</LastGenOutput>
       <DependentUpon>DraterBDD.edmx</DependentUpon>
+      <LastGenOutput>DraterBDD.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\DraterBDD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -250,6 +259,7 @@
     <Content Include="Views\Vote_Eleve\Edit.cshtml" />
     <Content Include="Views\Vote_Eleve\Index.cshtml" />
     <Content Include="Views\Connexion\Index.cshtml" />
+    <Content Include="Views\Retards\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
